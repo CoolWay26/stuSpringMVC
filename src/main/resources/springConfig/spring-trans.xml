@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.w3.org/2001/XMLSchema-instance http://www.springframework.org/schema/instance/spring-instance.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--事务管理器，依赖于连接池-->
+    <bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+    <!--开启注解式aop事务管理，如果事务管理器的id为transactionManager，那么transaction-manager属性可以省略-->
+    <tx:annotation-driven transaction-manager="transactionManager"></tx:annotation-driven>
+    <!--    &lt;!&ndash;配置aop事务通知&ndash;&gt;-->
+    <!--    <tx:advice id="tranAdvice" transaction-manager="transactionManager">-->
+    <!--        <tx:attributes>-->
+    <!--            <tx:method name="save*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false"/>-->
+    <!--        </tx:attributes>-->
+    <!--    </tx:advice>-->
+    <!--    &lt;!&ndash;配置aop事务切面&ndash;&gt;-->
+    <!--    <aop:config>-->
+    <!--        &lt;!&ndash;配置切点&ndash;&gt;-->
+    <!--        <aop:pointcut id="tranPoint" expression="execution(* com.coolway.service.impl.StudentServiceImpl.*(..))"/>-->
+    <!--        &lt;!&ndash;配置切面&ndash;&gt;-->
+    <!--        <aop:advisor advice-ref="tranAdvice" pointcut-ref="tranPoint"></aop:advisor>-->
+    <!--    </aop:config>-->
+
+    <import resource="spring-dao.xml"/>
+</beans>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coolway.mapper.StudentMapper">
+    <select id="getAllStudent" resultType="com.coolway.entity.Student">
+        select t.* from student t;
+    </select>
+    <select id="getStudentByNameOrClazz" parameterType="String" resultType="com.coolway.entity.Student">
+        select t.* from student t
+        <where>
+            <if test="nameOrClazz !=null and nameOrClazz !=''">
+                t.name = #{nameOrClazz} or t.clazz = #{nameOrClazz}
+            </if>
+        </where>;
+    </select>
+</mapper>
